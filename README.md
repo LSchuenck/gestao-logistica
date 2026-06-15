@@ -60,7 +60,7 @@ Sistema web para controle de operações logísticas, desenvolvido em PHP puro c
 | Campo | Valor |
 |---|---|
 | E-mail | `admin@gestao.com` |
-| Senha | `admin123` |
+| Senha  | `admin123` |
 
 > Na primeira alteração de usuário, a senha temporária é enviada automaticamente por e-mail via integração com o **Microsoft Power Automate**.
 
