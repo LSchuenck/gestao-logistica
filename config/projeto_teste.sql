@@ -1,6 +1,17 @@
 CREATE DATABASE gestao_logistica;
 USE gestao_logistica;
 
+CREATE TABLE endereco (
+    id_endereco INT AUTO_INCREMENT PRIMARY KEY,
+    cep         VARCHAR(9),
+    logradouro  VARCHAR(255),
+    numero      VARCHAR(20),
+    complemento VARCHAR(100),
+    bairro      VARCHAR(100),
+    cidade      VARCHAR(100),
+    estado      CHAR(2)
+);
+
 CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -18,10 +29,11 @@ CREATE TABLE transportadora (
     nome_fantasia VARCHAR(150) NOT NULL,
     telefone VARCHAR(20),
     email VARCHAR(100),
-    endereco VARCHAR(255),
+    id_endereco INT NULL,
     status ENUM('ATIVA', 'INATIVA') DEFAULT 'ATIVA',
     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
-    data_atualizacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    data_atualizacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_transportadora_endereco FOREIGN KEY (id_endereco) REFERENCES endereco(id_endereco)
 );
 
 CREATE TABLE motorista (
@@ -65,17 +77,17 @@ CREATE TABLE cliente (
     nome VARCHAR(150) NOT NULL,
     cpf_cnpj VARCHAR(18),
     telefone VARCHAR(20),
-    endereco VARCHAR(255),
-    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
+    id_endereco INT NULL,
+    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_cliente_endereco FOREIGN KEY (id_endereco) REFERENCES endereco(id_endereco)
 );
 
 CREATE TABLE armazem (
     id_armazem INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    endereco VARCHAR(255),
-    cidade VARCHAR(100),
-    estado CHAR(2),
-    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
+    id_endereco INT NULL,
+    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_armazem_endereco FOREIGN KEY (id_endereco) REFERENCES endereco(id_endereco)
 );
 
 CREATE TABLE produto (

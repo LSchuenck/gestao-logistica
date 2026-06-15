@@ -33,3 +33,18 @@
 /* ===== LOGIN ===== */
 .login-page { background: #1a1a2e; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
 .login-card { border-radius: 16px; border: none; max-width: 400px; width: 100%; }
+
+
+html, body {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}

@@ -1,6 +1,19 @@
 <?php
-// Use esta página para gerar o hash de uma senha e depois DELETE este arquivo.
+/*
+ * Arquivo: gerar_hash.php
+ * Finalidade: Utilitário de desenvolvimento para gerar hashes bcrypt de senhas.
+ * Use esta página para obter o hash de uma senha e inseri-lo manualmente no banco
+ * via SQL (INSERT INTO usuario ...).
+ *
+ * ATENÇÃO: Este arquivo é exclusivo para uso em desenvolvimento/instalação.
+ * DELETE este arquivo do servidor de produção após utilizá-lo,
+ * pois ele representa um risco de segurança se deixado acessível publicamente.
+ */
+
+// Processa o formulário apenas quando enviado via POST e se o campo "senha" foi preenchido
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['senha'])) {
+    // Gera o hash bcrypt da senha informada.
+    // PASSWORD_BCRYPT é seguro e resistente a ataques de força bruta por ser computacionalmente custoso.
     $hash = password_hash($_POST['senha'], PASSWORD_BCRYPT);
 }
 ?>
@@ -21,8 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['senha'])) {
         <button class="btn btn-dark w-100">Gerar</button>
     </form>
     <?php if (!empty($hash)): ?>
+    <!-- Exibe o hash gerado somente se o formulário foi submetido com sucesso -->
     <div class="mt-3">
         <label class="form-label small fw-semibold">Hash gerado (copie para o INSERT):</label>
+        <!-- O campo textarea com onclick seleciona todo o conteúdo ao clicar, facilitando a cópia -->
         <textarea class="form-control font-monospace small" rows="3" onclick="this.select()"><?= htmlspecialchars($hash) ?></textarea>
         <p class="text-muted small mt-2">
             SQL de exemplo:<br>
@@ -30,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['senha'])) {
         </p>
     </div>
     <?php endif; ?>
+    <!-- Lembrete de segurança: este arquivo deve ser removido após o uso -->
     <div class="alert alert-warning mt-3 py-2 small"><strong>Atenção:</strong> Delete este arquivo após usar.</div>
 </div>
 </body>

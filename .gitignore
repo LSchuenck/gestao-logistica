@@ -1,0 +1,13 @@
+# Arquivos temporários do Word
+~$*
+
+# Arquivos de ambiente e configuração local
+.env
+*.local
+
+# Cache e logs
+*.log
+/logs/
+
+# Dependências (não usadas — projeto PHP puro)
+/vendor/
