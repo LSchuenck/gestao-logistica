@@ -118,12 +118,12 @@
         <!-- KPI: Transportadoras com status ATIVA -->
         <div class="col-md-4"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Ativas</span>
-            <h3 class="fw-black text-success m-0 mt-1"><?= $ativas ?? 0 ?> <span class="fs-6 text-muted fw-normal">operacionais</span></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $ativas ?? 0 ?> <span class="fs-6 text-muted fw-normal">operacionais</span></h3>
         </div></div>
         <!-- KPI: Transportadoras inativas (calculado como total - ativas) -->
         <div class="col-md-4"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Inativas</span>
-            <h3 class="fw-black text-danger m-0 mt-1"><?= ($total ?? 0) - ($ativas ?? 0) ?> <span class="fs-6 text-muted fw-normal">suspensas</span></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= ($total ?? 0) - ($ativas ?? 0) ?> <span class="fs-6 text-muted fw-normal">suspensas</span></h3>
         </div></div>
     </div>
 
@@ -133,7 +133,7 @@
         <div class="col-xl-4 col-lg-5">
 
             <!-- Botão que abre/fecha o formulário de cadastro (colapso Bootstrap) -->
-            <button class="btn btn-primary w-100 mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#formTransp">
+            <button class="btn btn-success w-100 mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#formTransp">
                 <i class="bi bi-patch-plus-fill"></i> Nova Transportadora
             </button>
 

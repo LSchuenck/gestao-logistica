@@ -36,32 +36,32 @@
         <!-- KPI: Total geral de alertas (vermelho se > 0, verde se 0) -->
         <div class="col-6 col-md"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Total de Alertas</span>
-            <h3 class="fw-black <?= count($alertas) > 0 ? 'text-danger' : 'text-success' ?> m-0 mt-1"><?= count($alertas) ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= count($alertas) ?></h3>
         </div></div>
         <!-- KPI: Alertas de entregas atrasadas -->
         <div class="col-6 col-md"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Entregas Atrasadas</span>
-            <h3 class="fw-black <?= $total_atrasos > 0 ? 'text-danger' : 'text-success' ?> m-0 mt-1"><?= $total_atrasos ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $total_atrasos ?></h3>
         </div></div>
         <!-- KPI: Alertas de viagens em trânsito sem retorno previsto -->
         <div class="col-6 col-md"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Viagens Sem Retorno</span>
-            <h3 class="fw-black <?= $total_viagens > 0 ? 'text-warning' : 'text-success' ?> m-0 mt-1"><?= $total_viagens ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $total_viagens ?></h3>
         </div></div>
         <!-- KPI: Alertas de estoque crítico -->
         <div class="col-6 col-md"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Estoque Crítico</span>
-            <h3 class="fw-black <?= $total_estoque > 0 ? 'text-warning' : 'text-success' ?> m-0 mt-1"><?= $total_estoque ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $total_estoque ?></h3>
         </div></div>
         <!-- KPI: Desvios de rota registrados manualmente -->
         <div class="col-6 col-md"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Desvios de Rota</span>
-            <h3 class="fw-black <?= $total_desvios > 0 ? 'text-warning' : 'text-success' ?> m-0 mt-1"><?= $total_desvios ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $total_desvios ?></h3>
         </div></div>
         <!-- KPI: Paradas não programadas -->
         <div class="col-6 col-md"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Paradas</span>
-            <h3 class="fw-black <?= $total_paradas > 0 ? 'text-secondary' : 'text-success' ?> m-0 mt-1"><?= $total_paradas ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $total_paradas ?></h3>
         </div></div>
     </div>
 

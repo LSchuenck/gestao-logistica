@@ -51,12 +51,12 @@
         <!-- KPI: Motoristas ativos/habilitados -->
         <div class="col-md-4"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Ativos</span>
-            <h3 class="fw-black text-success m-0 mt-1"><?= $ativos ?? 0 ?> <span class="fs-6 text-muted fw-normal">habilitados</span></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $ativos ?? 0 ?> <span class="fs-6 text-muted fw-normal">habilitados</span></h3>
         </div></div>
-        <!-- KPI: Motoristas com CNH vencida (vermelho se > 0, verde se 0) -->
+        <!-- KPI: Motoristas com CNH vencida -->
         <div class="col-md-4"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">CNH Vencida</span>
-            <h3 class="fw-black <?= $vencidos>0 ? 'text-danger' : 'text-success' ?> m-0 mt-1"><?= $vencidos ?> <span class="fs-6 text-muted fw-normal">pendentes</span></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $vencidos ?> <span class="fs-6 text-muted fw-normal">pendentes</span></h3>
         </div></div>
     </div>
 

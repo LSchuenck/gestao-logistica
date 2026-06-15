@@ -51,17 +51,17 @@
         <!-- KPI: Receita total acumulada -->
         <div class="col-md-3"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Receita Total</span>
-            <h3 class="fw-black text-primary m-0 mt-1" style="font-size:1.3rem">R$ <?= number_format($total_valor ?? 0,2,',','.') ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1" style="font-size:1.3rem">R$ <?= number_format($total_valor ?? 0,2,',','.') ?></h3>
         </div></div>
         <!-- KPI: Custo operacional total -->
         <div class="col-md-3"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Custo Operacional</span>
-            <h3 class="fw-black text-danger m-0 mt-1" style="font-size:1.3rem">R$ <?= number_format($total_custo ?? 0,2,',','.') ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1" style="font-size:1.3rem">R$ <?= number_format($total_custo ?? 0,2,',','.') ?></h3>
         </div></div>
-        <!-- KPI: Margem bruta em percentual (verde se >= 30%, amarelo se abaixo) -->
+        <!-- KPI: Margem bruta em percentual -->
         <div class="col-md-3"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Margem Bruta</span>
-            <h3 class="fw-black <?= $margem ?? 0>30?'text-success':'text-warning' ?> m-0 mt-1"><?= number_format($margem ?? 0,1,',','.') ?>%</h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= number_format($margem ?? 0,1,',','.') ?>%</h3>
         </div></div>
     </div>
 
@@ -71,11 +71,11 @@
         <div class="col-xl-4 col-lg-5">
 
             <!-- Botão que abre/fecha o formulário de emissão de frete -->
-            <button class="btn w-100 mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm text-white" style="background:#6f42c1" type="button" data-bs-toggle="collapse" data-bs-target="#formFrete">
+            <button class="btn btn-success w-100 mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#formFrete">
                 <i class="bi bi-file-earmark-plus-fill"></i> Emitir Frete / NF
             </button>
 
-            <!-- JSON com dados das viagens sem frete para uso no JavaScript da calculadora -->
+            <!-- JSON com dados das viagens sem frete (lido por assets/js/frete.js) -->
             <script type="application/json" id="viagens-json">
             <?= json_encode(array_map(fn($v) => [
                 'id'                  => (int)$v['id_viagem'],

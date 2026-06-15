@@ -49,17 +49,17 @@
         <!-- KPI: Rotas no status PLANEJADA -->
         <div class="col-md-4"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Planejadas</span>
-            <h3 class="fw-black text-warning m-0 mt-1"><?= $planejadas ?? 0 ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $planejadas ?? 0 ?></h3>
         </div></div>
         <!-- KPI: Rotas em andamento -->
         <div class="col-md-4"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Em Andamento</span>
-            <h3 class="fw-black text-primary m-0 mt-1"><?= $em_andamento ?? 0 ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $em_andamento ?? 0 ?></h3>
         </div></div>
         <!-- KPI: Rotas finalizadas -->
         <div class="col-md-4"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Finalizadas</span>
-            <h3 class="fw-black text-success m-0 mt-1"><?= $finalizadas ?? 0 ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $finalizadas ?? 0 ?></h3>
         </div></div>
     </div>
 

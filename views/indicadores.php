@@ -54,49 +54,49 @@
         <!-- KPI: Receita total de fretes emitidos -->
         <div class="col-6 col-md-4 col-lg-2">
             <div class="card kpi-card shadow-sm h-100 p-3 bg-white">
-                <div class="bg-primary bg-opacity-10 text-primary p-2 rounded mb-2 d-inline-block"><i class="bi bi-cash-stack fs-4"></i></div>
+                <div class="kpi-icon-neutral p-2 rounded mb-2 d-inline-block"><i class="bi bi-cash-stack fs-4"></i></div>
                 <span class="text-muted small text-uppercase fw-bold">Receita Total</span>
-                <h4 class="fw-black text-primary mb-0 mt-1" style="font-size:1.1rem">R$ <?= number_format($total_frete ?? 0,0,',','.') ?></h4>
+                <h4 class="fw-black text-dark mb-0 mt-1" style="font-size:1.1rem">R$ <?= number_format($total_frete ?? 0,0,',','.') ?></h4>
             </div>
         </div>
         <!-- KPI: Custo operacional total dos fretes -->
         <div class="col-6 col-md-4 col-lg-2">
             <div class="card kpi-card shadow-sm h-100 p-3 bg-white">
-                <div class="bg-danger bg-opacity-10 text-danger p-2 rounded mb-2 d-inline-block"><i class="bi bi-graph-down-arrow fs-4"></i></div>
+                <div class="kpi-icon-neutral p-2 rounded mb-2 d-inline-block"><i class="bi bi-graph-down-arrow fs-4"></i></div>
                 <span class="text-muted small text-uppercase fw-bold">Custo Total</span>
-                <h4 class="fw-black text-danger mb-0 mt-1" style="font-size:1.1rem">R$ <?= number_format($total_custo ?? 0,0,',','.') ?></h4>
+                <h4 class="fw-black text-dark mb-0 mt-1" style="font-size:1.1rem">R$ <?= number_format($total_custo ?? 0,0,',','.') ?></h4>
             </div>
         </div>
         <!-- KPI: Taxa de entregas realizadas dentro do prazo previsto -->
         <div class="col-6 col-md-4 col-lg-2">
             <div class="card kpi-card shadow-sm h-100 p-3 bg-white">
-                <div class="bg-success bg-opacity-10 text-success p-2 rounded mb-2 d-inline-block"><i class="bi bi-check2-circle fs-4"></i></div>
+                <div class="kpi-icon-neutral p-2 rounded mb-2 d-inline-block"><i class="bi bi-check2-circle fs-4"></i></div>
                 <span class="text-muted small text-uppercase fw-bold">Entregas no Prazo</span>
-                <h4 class="fw-black text-success mb-0 mt-1"><?= number_format($taxa_prazo ?? 0,1,',','.') ?>%</h4>
+                <h4 class="fw-black text-dark mb-0 mt-1"><?= number_format($taxa_prazo ?? 0,1,',','.') ?>%</h4>
             </div>
         </div>
         <!-- KPI: Taxa de conclusão de rotas/operações planejadas -->
         <div class="col-6 col-md-4 col-lg-2">
             <div class="card kpi-card shadow-sm h-100 p-3 bg-white">
-                <div class="bg-warning bg-opacity-10 text-warning p-2 rounded mb-2 d-inline-block"><i class="bi bi-truck fs-4"></i></div>
+                <div class="kpi-icon-neutral p-2 rounded mb-2 d-inline-block"><i class="bi bi-truck fs-4"></i></div>
                 <span class="text-muted small text-uppercase fw-bold">Taxa Conclusão</span>
-                <h4 class="fw-black text-warning mb-0 mt-1"><?= number_format($taxa_conclusao ?? 0,1,',','.') ?>%</h4>
+                <h4 class="fw-black text-dark mb-0 mt-1"><?= number_format($taxa_conclusao ?? 0,1,',','.') ?>%</h4>
             </div>
         </div>
         <!-- KPI: Total de quilômetros percorridos em todas as viagens -->
         <div class="col-6 col-md-4 col-lg-2">
             <div class="card kpi-card shadow-sm h-100 p-3 bg-white">
-                <div class="bg-dark bg-opacity-10 text-dark p-2 rounded mb-2 d-inline-block"><i class="bi bi-signpost-split fs-4"></i></div>
+                <div class="kpi-icon-neutral p-2 rounded mb-2 d-inline-block"><i class="bi bi-signpost-split fs-4"></i></div>
                 <span class="text-muted small text-uppercase fw-bold">KM Percorridos</span>
                 <h4 class="fw-black text-dark mb-0 mt-1"><?= number_format($km_total ?? 0,0,',','.') ?></h4>
             </div>
         </div>
-        <!-- KPI: Total de alertas ativos (vermelho se > 0, verde se 0) -->
+        <!-- KPI: Total de alertas ativos -->
         <div class="col-6 col-md-4 col-lg-2">
             <div class="card kpi-card shadow-sm h-100 p-3 bg-white">
-                <div class="bg-danger bg-opacity-10 text-danger p-2 rounded mb-2 d-inline-block"><i class="bi bi-exclamation-triangle fs-4"></i></div>
+                <div class="kpi-icon-neutral p-2 rounded mb-2 d-inline-block"><i class="bi bi-exclamation-triangle fs-4"></i></div>
                 <span class="text-muted small text-uppercase fw-bold">Alertas Ativos</span>
-                <h4 class="fw-black <?= ($total_alertas ?? 0)>0?'text-danger':'text-success' ?> mb-0 mt-1"><?= $total_alertas ?? 0 ?></h4>
+                <h4 class="fw-black text-dark mb-0 mt-1"><?= $total_alertas ?? 0 ?></h4>
             </div>
         </div>
     </div>
@@ -146,7 +146,7 @@
                 <?php foreach($ranking as $r):
                     /* Calcula a margem percentual desta transportadora */
                     $margem_linha = $r['receita'] > 0 ? (($r['receita'] - $r['custo']) / $r['receita']) * 100 : 0;
-                    /* Define a cor da barra de eficiência conforme a margem (verde >= 40%, amarelo >= 20%, vermelho < 20%) */
+                    /* Cor da barra de eficiência: vermelho < 20%, amarelo 20–40%, verde >= 40% */
                     $cor_bar = 'bg-danger';
                     if ($margem_linha >= 20) $cor_bar = 'bg-warning';
                     if ($margem_linha >= 40) $cor_bar = 'bg-success';

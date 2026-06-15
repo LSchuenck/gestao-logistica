@@ -51,17 +51,17 @@
         <!-- KPI: Veículos disponíveis para uso -->
         <div class="col-6 col-md-3"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Disponíveis</span>
-            <h3 class="fw-black text-success m-0 mt-1"><?= $disponiveis ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $disponiveis ?></h3>
         </div></div>
         <!-- KPI: Veículos atualmente em viagem -->
         <div class="col-6 col-md-3"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Em Viagem</span>
-            <h3 class="fw-black text-primary m-0 mt-1"><?= $em_viagem ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $em_viagem ?></h3>
         </div></div>
         <!-- KPI: Capacidade total da frota convertida para toneladas -->
         <div class="col-6 col-md-3"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Capacidade Total</span>
-            <h3 class="fw-black text-danger m-0 mt-1"><?= number_format($cap_total/1000,1,',','.') ?> <span class="fs-6 fw-normal text-muted">ton</span></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= number_format($cap_total/1000,1,',','.') ?> <span class="fs-6 fw-normal text-muted">ton</span></h3>
         </div></div>
     </div>
 
@@ -71,7 +71,7 @@
         <div class="col-xl-4 col-lg-5">
 
             <!-- Botão que abre/fecha o formulário de cadastro (colapso Bootstrap) -->
-            <button class="btn btn-danger w-100 mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#formVeic">
+            <button class="btn btn-success w-100 mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#formVeic">
                 <i class="bi bi-plus-square-fill"></i> Cadastrar Veículo
             </button>
 

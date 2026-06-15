@@ -29,55 +29,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Estilos personalizados do sistema -->
     <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        /* Estilo base dos cards de KPI */
-        .kpi-card {
-            border: none;
-            border-radius: 12px;
-            transition: transform .15s, box-shadow .15s;
-        }
-        /* Efeito de elevação ao passar o mouse sobre os cards */
-        .kpi-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0,0,0,.10) !important;
-        }
-        /* Ícone circular exibido dentro de cada card de KPI */
-        .kpi-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            flex-shrink: 0;
-        }
-        /* Valor numérico em destaque nos cards de KPI */
-        .kpi-value {
-            font-size: 2rem;
-            font-weight: 800;
-            line-height: 1;
-        }
-        /* Botões de atalho rápido */
-        .quick-btn {
-            border-radius: 10px;
-            padding: .65rem 1.1rem;
-            font-weight: 600;
-            font-size: .875rem;
-            transition: transform .12s;
-        }
-        /* Efeito de elevação nos botões de atalho */
-        .quick-btn:hover { transform: translateY(-2px); }
-        /* Título de seção estilizado em caixa alta com letras espaçadas */
-        .section-title {
-            font-size: .7rem;
-            font-weight: 700;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            color: #6c757d;
-            margin-bottom: .75rem;
-        }
-    </style>
+
 </head>
 <body class="bg-light">
     <!-- Renderiza a barra de navegação superior do sistema -->
@@ -111,12 +63,11 @@
             <div class="col-6 col-md-4">
                 <div class="card kpi-card shadow-sm p-3 h-100">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="kpi-icon bg-primary-subtle text-primary">
+                        <div class="kpi-icon">
                             <i class="bi bi-clock-history"></i>
                         </div>
                         <div>
-                            <!-- Exibe a contagem de entregas pendentes -->
-                            <div class="kpi-value text-primary"><?= (int)$entregas_pendentes ?></div>
+                            <div class="kpi-value"><?= (int)$entregas_pendentes ?></div>
                             <div class="text-muted small fw-semibold">Pendentes</div>
                         </div>
                     </div>
@@ -127,12 +78,11 @@
             <div class="col-6 col-md-4">
                 <div class="card kpi-card shadow-sm p-3 h-100">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="kpi-icon bg-success-subtle text-success">
+                        <div class="kpi-icon">
                             <i class="bi bi-truck"></i>
                         </div>
                         <div>
-                            <!-- Exibe a contagem de entregas em trânsito -->
-                            <div class="kpi-value text-success"><?= (int)$entregas_transito ?></div>
+                            <div class="kpi-value"><?= (int)$entregas_transito ?></div>
                             <div class="text-muted small fw-semibold">Em Trânsito</div>
                         </div>
                     </div>
@@ -143,12 +93,11 @@
             <div class="col-6 col-md-4">
                 <div class="card kpi-card shadow-sm p-3 h-100">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="kpi-icon bg-danger-subtle text-danger">
+                        <div class="kpi-icon">
                             <i class="bi bi-exclamation-triangle-fill"></i>
                         </div>
                         <div>
-                            <!-- Exibe a contagem de entregas atrasadas -->
-                            <div class="kpi-value text-danger"><?= (int)$entregas_atrasadas ?></div>
+                            <div class="kpi-value"><?= (int)$entregas_atrasadas ?></div>
                             <div class="text-muted small fw-semibold">Atrasadas</div>
                         </div>
                     </div>
@@ -164,28 +113,26 @@
             <div class="col-6 col-md-3">
                 <div class="card kpi-card shadow-sm p-3 h-100">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="kpi-icon bg-warning-subtle text-warning">
+                        <div class="kpi-icon">
                             <i class="bi bi-broadcast"></i>
                         </div>
                         <div>
-                            <!-- Exibe a quantidade de viagens ativas -->
-                            <div class="kpi-value text-warning"><?= (int)$viagens_ativas ?></div>
+                            <div class="kpi-value"><?= (int)$viagens_ativas ?></div>
                             <div class="text-muted small fw-semibold">Viagens Ativas</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Card: Alertas gerados nos últimos 7 dias -->
+            <!-- Card: Alertas ativos -->
             <div class="col-6 col-md-3">
                 <div class="card kpi-card shadow-sm p-3 h-100">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="kpi-icon bg-danger-subtle text-danger">
+                        <div class="kpi-icon">
                             <i class="bi bi-bell-fill"></i>
                         </div>
                         <div>
-                            <!-- Exibe a quantidade de alertas recentes -->
-                            <div class="kpi-value text-danger"><?= (int)$alertas_recentes ?></div>
+                            <div class="kpi-value"><?= (int)$alertas_recentes ?></div>
                             <div class="text-muted small fw-semibold">Alertas Ativos</div>
                         </div>
                     </div>
@@ -196,12 +143,11 @@
             <div class="col-6 col-md-3">
                 <div class="card kpi-card shadow-sm p-3 h-100">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="kpi-icon bg-secondary-subtle text-secondary">
+                        <div class="kpi-icon">
                             <i class="bi bi-car-front-fill"></i>
                         </div>
                         <div>
-                            <!-- Exibe a quantidade de veículos livres -->
-                            <div class="kpi-value text-secondary"><?= (int)$veiculos_disponiveis ?></div>
+                            <div class="kpi-value"><?= (int)$veiculos_disponiveis ?></div>
                             <div class="text-muted small fw-semibold">Veíc. Livres</div>
                         </div>
                     </div>
@@ -212,12 +158,11 @@
             <div class="col-6 col-md-3">
                 <div class="card kpi-card shadow-sm p-3 h-100">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="kpi-icon bg-success-subtle text-success">
+                        <div class="kpi-icon">
                             <i class="bi bi-currency-dollar"></i>
                         </div>
                         <div>
-                            <!-- Exibe o valor monetário formatado em R$ -->
-                            <div class="kpi-value text-success" style="font-size:1.3rem">
+                            <div class="kpi-value" style="font-size:1.3rem">
                                 R$ <?= number_format((float)$frete_mes, 0, ',', '.') ?>
                             </div>
                             <div class="text-muted small fw-semibold">Frete do Mês</div>
@@ -233,37 +178,37 @@
             <div class="row g-2">
                 <!-- Atalho para página de Entregas -->
                 <div class="col-6 col-md-4 col-lg-2">
-                    <a href="entregas.php" class="btn btn-outline-primary quick-btn w-100">
+                    <a href="entregas.php" class="btn quick-btn w-100">
                         <i class="bi bi-plus-circle me-1"></i> Nova Entrega
                     </a>
                 </div>
                 <!-- Atalho para página de Rotas -->
                 <div class="col-6 col-md-4 col-lg-2">
-                    <a href="rotas.php" class="btn btn-outline-secondary quick-btn w-100">
+                    <a href="rotas.php" class="btn quick-btn w-100">
                         <i class="bi bi-signpost-split me-1"></i> Nova Rota
                     </a>
                 </div>
                 <!-- Atalho para página de Operações -->
                 <div class="col-6 col-md-4 col-lg-2">
-                    <a href="operacoes.php" class="btn btn-outline-warning quick-btn w-100">
+                    <a href="operacoes.php" class="btn quick-btn w-100">
                         <i class="bi bi-play-circle me-1"></i> Operações
                     </a>
                 </div>
                 <!-- Atalho para página de Fretes e NF -->
                 <div class="col-6 col-md-4 col-lg-2">
-                    <a href="frete.php" class="btn btn-outline-success quick-btn w-100">
+                    <a href="frete.php" class="btn quick-btn w-100">
                         <i class="bi bi-receipt me-1"></i> Frete / NF
                     </a>
                 </div>
                 <!-- Atalho para página de Estoque -->
                 <div class="col-6 col-md-4 col-lg-2">
-                    <a href="estoque.php" class="btn btn-outline-dark quick-btn w-100">
+                    <a href="estoque.php" class="btn quick-btn w-100">
                         <i class="bi bi-box-seam me-1"></i> Estoque
                     </a>
                 </div>
                 <!-- Atalho para página de Indicadores -->
                 <div class="col-6 col-md-4 col-lg-2">
-                    <a href="indicadores.php" class="btn btn-outline-danger quick-btn w-100">
+                    <a href="indicadores.php" class="btn quick-btn w-100">
                         <i class="bi bi-bar-chart-line me-1"></i> Indicadores
                     </a>
                 </div>

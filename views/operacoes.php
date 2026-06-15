@@ -34,21 +34,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <!-- Estilos personalizados do sistema -->
     <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        /* Efeito hover nos cards de operação */
-        .op-card { transition: box-shadow .15s; }
-        .op-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.1) !important; }
-        /* Contêiner padrão do mapa de trajeto de cada operação */
-        .mapa-trajeto { height: 300px; border-radius: 8px; background: #f0f0f0; }
-        /* Estilo do marcador numerado das paradas no mapa */
-        .stop-marker {
-            background: #0d6efd; color: #fff; border-radius: 50%;
-            width: 24px; height: 24px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 11px; font-weight: 700;
-            border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.35);
-        }
-    </style>
+
 </head>
 <body class="bg-light">
 <!-- Renderiza a barra de navegação superior do sistema -->
@@ -68,28 +54,28 @@
         <div class="col-6 col-md-3">
             <div class="card border-0 shadow-sm p-3 h-100">
                 <span class="text-muted small text-uppercase fw-bold">Planejadas</span>
-                <h3 class="fw-black text-warning m-0 mt-1"><?= $planejadas ?></h3>
+                <h3 class="fw-black text-dark m-0 mt-1"><?= $planejadas ?></h3>
             </div>
         </div>
         <!-- KPI: Operações atualmente em andamento -->
         <div class="col-6 col-md-3">
             <div class="card border-0 shadow-sm p-3 h-100">
                 <span class="text-muted small text-uppercase fw-bold">Em Andamento</span>
-                <h3 class="fw-black text-primary m-0 mt-1"><?= $em_andamento ?></h3>
+                <h3 class="fw-black text-dark m-0 mt-1"><?= $em_andamento ?></h3>
             </div>
         </div>
         <!-- KPI: Operações já finalizadas -->
         <div class="col-6 col-md-3">
             <div class="card border-0 shadow-sm p-3 h-100">
                 <span class="text-muted small text-uppercase fw-bold">Finalizadas</span>
-                <h3 class="fw-black text-success m-0 mt-1"><?= $finalizadas ?></h3>
+                <h3 class="fw-black text-dark m-0 mt-1"><?= $finalizadas ?></h3>
             </div>
         </div>
         <!-- KPI: Entregas pendentes sem operação vinculada -->
         <div class="col-6 col-md-3">
             <div class="card border-0 shadow-sm p-3 h-100">
                 <span class="text-muted small text-uppercase fw-bold">Aguardando Rota</span>
-                <h3 class="fw-black text-danger m-0 mt-1"><?= count($entregas_pendentes) ?></h3>
+                <h3 class="fw-black text-dark m-0 mt-1"><?= count($entregas_pendentes) ?></h3>
             </div>
         </div>
     </div>
@@ -100,7 +86,7 @@
         <div class="col-lg-4">
 
             <!-- Botão que abre/fecha o formulário de nova operação -->
-            <button class="btn btn-primary w-100 mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm"
+            <button class="btn btn-success w-100 mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm"
                     type="button" data-bs-toggle="collapse" data-bs-target="#formNovaOp">
                 <i class="bi bi-plus-circle-fill"></i> Nova Operação
             </button>
@@ -279,7 +265,7 @@
             <?php else: foreach($lista as $op):
                 $statusRota = $op['status'];
 
-                /* Define label, cor do badge e estilo da borda conforme o status da operação */
+                /* Define label, badge, borda e fundo do cabeçalho conforme o status da operação */
                 if ($statusRota === 'EM_ANDAMENTO') {
                     $labelStatus = 'EM ANDAMENTO';
                     $badgeClass  = 'bg-primary';
@@ -424,10 +410,6 @@
                         </div>
 
                         <?php
-                        /*
-                         * Determina a origem do mapa: usa o armazém da primeira entrega que tenha
-                         * armazém definido; caso contrário, usa a cidade da transportadora.
-                         */
                         $origemArmazem = null;
                         foreach ($rotaEntregas as $re) {
                             if (!empty($re['armazem_nome']) && !empty($re['armazem_cidade'])) {
@@ -599,8 +581,7 @@
     </div>
 </div>
 
-<!-- Elemento oculto com os dados de motoristas, veículos, transportadoras e entregas
-     serializados como JSON para uso no script.js -->
+<!-- Data attributes com motoristas, veículos, transportadoras e entregas em JSON (lidos por assets/js/operacoes.js) -->
 <div id="app-data"
      data-motoristas="<?= htmlspecialchars(json_encode($motoristas), ENT_QUOTES) ?>"
      data-veiculos="<?= htmlspecialchars(json_encode($veiculos), ENT_QUOTES) ?>"

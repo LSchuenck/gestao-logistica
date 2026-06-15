@@ -55,22 +55,22 @@
         <!-- KPI: Entregas aguardando saída (status PENDENTE) -->
         <div class="col-6 col-md-3"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Pendentes</span>
-            <h3 class="fw-black text-warning m-0 mt-1"><?= $pendentes ?? 0 ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $pendentes ?? 0 ?></h3>
         </div></div>
         <!-- KPI: Entregas atualmente em rota (status EM_TRANSITO) -->
         <div class="col-6 col-md-3"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Em Trânsito</span>
-            <h3 class="fw-black text-primary m-0 mt-1"><?= $em_transito ?? 0 ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $em_transito ?? 0 ?></h3>
         </div></div>
         <!-- KPI: Entregas concluídas com sucesso (status ENTREGUE) -->
         <div class="col-6 col-md-3"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Entregues</span>
-            <h3 class="fw-black text-success m-0 mt-1"><?= $entregues ?? 0 ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $entregues ?? 0 ?></h3>
         </div></div>
         <!-- KPI: Entregas que passaram da data prevista (status ATRASADA) -->
         <div class="col-6 col-md-3"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Atrasadas</span>
-            <h3 class="fw-black text-danger m-0 mt-1"><?= $atrasadas ?? 0 ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $atrasadas ?? 0 ?></h3>
         </div></div>
     </div>
 

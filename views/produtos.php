@@ -51,12 +51,12 @@
         <!-- KPI: Produtos com estoque crítico (menos de 10 unidades) -->
         <div class="col-md-3"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Estoque Crítico (&lt;10)</span>
-            <h3 class="fw-black <?= $criticos>0?'text-danger':'text-success' ?> m-0 mt-1"><?= $criticos ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $criticos ?></h3>
         </div></div>
         <!-- KPI: Produtos com data de validade vencida -->
         <div class="col-md-3"><div class="card border-0 shadow-sm bg-white p-3">
             <span class="text-muted small text-uppercase fw-bold">Vencidos</span>
-            <h3 class="fw-black <?= $vencidos>0?'text-danger':'text-success' ?> m-0 mt-1"><?= $vencidos ?></h3>
+            <h3 class="fw-black text-dark m-0 mt-1"><?= $vencidos ?></h3>
         </div></div>
     </div>
 
@@ -66,7 +66,7 @@
         <div class="col-xl-4 col-lg-5">
 
             <!-- Botão que abre/fecha o formulário de cadastro (colapso Bootstrap) -->
-            <button class="btn btn-info text-white w-100 mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#formProd">
+            <button class="btn btn-success w-100 mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#formProd">
                 <i class="bi bi-file-earmark-plus-fill"></i> Cadastrar Produto
             </button>
 

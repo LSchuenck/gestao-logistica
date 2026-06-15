@@ -107,7 +107,7 @@
         <div class="col-xl-4 col-lg-5">
 
             <!-- Botão que abre/fecha o formulário de cadastro (colapso Bootstrap) -->
-            <button class="btn btn-info text-white w-100 mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#formCliente">
+            <button class="btn btn-success w-100 mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#formCliente">
                 <i class="bi bi-person-plus-fill"></i> Novo Cliente
             </button>
 
