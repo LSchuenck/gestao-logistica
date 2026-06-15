@@ -9,5 +9,9 @@
 *.log
 /logs/
 
+# Documentação e scripts de geração
+*.docx
+*.py
+
 # Dependências (não usadas — projeto PHP puro)
 /vendor/
