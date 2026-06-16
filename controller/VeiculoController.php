@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Controller: VeiculoController
  * Trata as requisições GET/POST da página de gerenciamento de veículos.
@@ -15,7 +15,7 @@ class VeiculoController {
     /**
      * Ponto de entrada único — processa a requisição e inclui a view.
      */
-    public function handle(): void {
+    public function processar(): void {
         $erro = "";
 
         // --- EXCLUSÃO DE VEÍCULO ---
@@ -23,12 +23,13 @@ class VeiculoController {
         if (isset($_GET['excluir'])) {
             try {
                 $this->dao->excluir((int) $_GET['excluir']);
-
+                salvarMensagem('success', 'Veículo removido com sucesso!');
                 header('Location: veiculos.php');
                 exit;
             } catch (Exception $e) {
-                // Falha esperada: veículo possui rotas ou viagens vinculadas (constraint FK)
-                $erro = "Não é possível excluir: este veículo possui rotas ou viagens vinculadas.";
+                salvarMensagem('danger', 'Não é possível excluir: este veículo possui rotas ou viagens vinculadas.');
+                header('Location: veiculos.php');
+                exit;
             }
         }
 
@@ -57,15 +58,19 @@ class VeiculoController {
                     'tipo_veiculo'      => $_POST['tipo_veiculo'],
                     'capacidade_carga'  => $_POST['capacidade_carga'],
                 ];
-                if (($_POST['acao'] ?? '') === 'editar') {
+                $edicao = ($_POST['acao'] ?? '') === 'editar';
+                if ($edicao) {
                     $this->dao->atualizar((int) $_POST['id_veiculo'], $dados);
                 } else {
                     $this->dao->inserir($dados);
                 }
+                salvarMensagem('success', $edicao ? 'Veículo atualizado com sucesso!' : 'Veículo cadastrado com sucesso!');
                 header('Location: veiculos.php');
                 exit;
             } catch (Exception $e) {
-                $erro = "Erro ao salvar: placa já registrada ou dados inválidos.";
+                salvarMensagem('danger', 'Erro ao salvar: placa já registrada ou dados inválidos.');
+                header('Location: veiculos.php');
+                exit;
             }
         }
 

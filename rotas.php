@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Entry point: rotas.php
  * Ponto de entrada do módulo de Rotas.
@@ -7,7 +7,7 @@
 
 // Verifica autenticação e restringe o acesso apenas a ADMIN e GERENTE
 require_once 'config/auth.php';
-requerPerfil(['ADMIN', 'GERENTE']);
+exigirPerfil(['ADMIN', 'GERENTE']);
 
 // Estabelece a conexão com o banco de dados via PDO ($pdo)
 require_once 'config/conexao.php';
@@ -20,4 +20,4 @@ require_once 'controller/RotaController.php';
 $controller = new RotaController(new RotaDao($pdo));
 
 // Delega todo o processamento da requisição ao Controller
-$controller->handle();
+$controller->processar();

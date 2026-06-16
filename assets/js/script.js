@@ -1,4 +1,4 @@
-// ── Dados injetados pelo PHP via data attributes ──────────────────────────
+﻿// ── Dados injetados pelo PHP via data attributes ──────────────────────────
 const _appData              = document.getElementById('app-data');
 const motoristasData        = JSON.parse(_appData.dataset.motoristas       || '[]');
 const veiculosData          = JSON.parse(_appData.dataset.veiculos         || '[]');
@@ -51,18 +51,55 @@ document.getElementById('sel-transportadora').addEventListener('change', functio
             const armLabel = e.armazem_nome
                 ? `<span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 ms-1" style="font-size:.68rem">${e.armazem_nome}</span>`
                 : '';
+            const pesoLabel = e.peso_total
+                ? `<span class="text-muted ms-1" style="font-size:.7rem">${parseFloat(e.peso_total).toLocaleString('pt-BR',{maximumFractionDigits:0})} kg</span>`
+                : '';
             lista.innerHTML += `
                 <label class="d-flex align-items-center gap-2 py-1 border-bottom" style="cursor:pointer">
                     <input type="checkbox" name="id_entregas[]" value="${e.id_entrega}"
-                           class="form-check-input flex-shrink-0 mt-0">
+                           class="form-check-input flex-shrink-0 mt-0" onchange="_verificarPeso()">
                     <span class="font-monospace text-muted" style="font-size:.73rem">#${String(e.id_entrega).padStart(4,'0')}</span>
-                    <span class="flex-grow-1">${e.cliente}${armLabel}</span>
+                    <span class="flex-grow-1">${e.cliente}${armLabel}${pesoLabel}</span>
                     <span class="text-muted small">${e.cidade}${e.estado ? '/'+e.estado : ''}${data ? ' · '+data : ''}</span>
                 </label>`;
         });
     }
     section.style.display = 'block';
+    _verificarPeso();
 });
+
+// Revalida peso ao trocar o veículo
+document.getElementById('sel-veiculo').addEventListener('change', _verificarPeso);
+
+// Verifica se o peso total das entregas selecionadas excede a capacidade do veículo.
+// Exibe aviso e desabilita o botão de submit se exceder.
+function _verificarPeso() {
+    const selV    = document.getElementById('sel-veiculo');
+    const aviso   = document.getElementById('aviso-peso');
+    const btnCriar = document.getElementById('btn-criar-op');
+    if (!selV || !aviso || !btnCriar) return;
+
+    const veiculo    = veiculosData.find(v => String(v.id_veiculo) === selV.value);
+    const capacidade = veiculo ? parseFloat(veiculo.capacidade_carga || 0) : 0;
+
+    const checados = document.querySelectorAll('#lista-entregas-form input[type=checkbox]:checked');
+    const selIds   = Array.from(checados).map(c => c.value);
+    const pesoTotal = entregasPendentesData
+        .filter(e => selIds.includes(String(e.id_entrega)))
+        .reduce((acc, e) => acc + parseFloat(e.peso_total || 0), 0);
+
+    if (capacidade > 0 && selIds.length > 0 && pesoTotal > capacidade) {
+        aviso.style.display = 'block';
+        aviso.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-1"></i>
+            Peso total: <strong>${pesoTotal.toLocaleString('pt-BR',{maximumFractionDigits:0})} kg</strong> —
+            Capacidade do veículo: <strong>${capacidade.toLocaleString('pt-BR',{maximumFractionDigits:0})} kg</strong>.
+            Remova entregas ou selecione outro veículo.`;
+        btnCriar.disabled = true;
+    } else {
+        aviso.style.display = 'none';
+        btnCriar.disabled = false;
+    }
+}
 
 // ── Mapa + Geocoding (Nominatim) + Rota (OSRM) ───────────────────────────
 const _mapas = {};
@@ -77,7 +114,7 @@ async function _geocodificar(query) {
     return d[0] ? { lat: parseFloat(d[0].lat), lon: parseFloat(d[0].lon) } : null;
 }
 
-function _sleep(ms) {
+function _aguardar(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -170,7 +207,7 @@ async function calcularTrajetoForm() {
         } else {
             info.innerHTML += `<span class="badge bg-warning text-dark me-1">⚠ Origem (${origem.nome}): cidade não encontrada</span>`;
         }
-        if (entregas.length > 0) await _sleep(1100);
+        if (entregas.length > 0) await _aguardar(1100);
     }
 
     // Geocodifica entregas selecionadas
@@ -187,7 +224,7 @@ async function calcularTrajetoForm() {
         } else {
             info.innerHTML += `<span class="badge bg-warning text-dark me-1">⚠ Não encontrado: ${e.cliente}</span>`;
         }
-        if (i < entregas.length - 1) await _sleep(1100);
+        if (i < entregas.length - 1) await _aguardar(1100);
     }
 
     const todosPontos = [];
@@ -241,7 +278,7 @@ async function calcularTrajeto(rotaId) {
         } else {
             info.innerHTML += `<span class="badge bg-warning text-dark me-1">⚠ Origem: cidade não encontrada</span>`;
         }
-        await _sleep(1100);
+        await _aguardar(1100);
     }
 
     // Geocodifica entregas
@@ -251,7 +288,7 @@ async function calcularTrajeto(rotaId) {
         btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Localizando parada ${i+1}/${entregas.length}...`;
         if (!e.cidade) {
             info.innerHTML += `<span class="badge bg-warning text-dark me-1">⚠ ${e.cliente}: sem cidade</span>`;
-            if (i < entregas.length - 1) await _sleep(1100);
+            if (i < entregas.length - 1) await _aguardar(1100);
             continue;
         }
         const coord = await _geocodificar([e.cidade, e.estado, 'Brasil'].filter(Boolean).join(', '));
@@ -263,7 +300,7 @@ async function calcularTrajeto(rotaId) {
         } else {
             info.innerHTML += `<span class="badge bg-warning text-dark me-1">⚠ Não encontrado: ${e.cliente}</span>`;
         }
-        if (i < entregas.length - 1) await _sleep(1100);
+        if (i < entregas.length - 1) await _aguardar(1100);
     }
 
     const todosPontos = [];

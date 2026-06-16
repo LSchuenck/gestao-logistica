@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Controller: EntregaController
  *
@@ -35,7 +35,7 @@ class EntregaController
      *
      * @return void
      */
-    public function handle(): void
+    public function processar(): void
     {
         $erro    = '';
         $sucesso = '';
@@ -58,11 +58,13 @@ class EntregaController
         if (isset($_GET['excluir'])) {
             try {
                 $this->dao->excluir((int)$_GET['excluir']);
+                salvarMensagem('success', 'Entrega removida com sucesso!');
                 header('Location: entregas.php');
                 exit;
             } catch (Exception $e) {
-                // Exibe mensagem amigável; o erro real pode ser FK ou permissão no BD
-                $erro = 'Não é possível excluir esta entrega.';
+                salvarMensagem('danger', 'Não é possível excluir esta entrega.');
+                header('Location: entregas.php');
+                exit;
             }
         }
 
@@ -105,10 +107,13 @@ class EntregaController
                         !empty($_POST['volume_total']) ? floatval($_POST['volume_total'])   : null,
                         is_array($_POST['produtos'] ?? null) ? $_POST['produtos'] : []
                     );
+                    salvarMensagem('success', 'Entrega cadastrada com sucesso!');
                     header('Location: entregas.php');
                     exit;
                 } catch (Exception $e) {
-                    $erro = 'Erro ao cadastrar entrega.';
+                    salvarMensagem('danger', 'Erro ao cadastrar entrega.');
+                    header('Location: entregas.php');
+                    exit;
                 }
             }
 
@@ -137,11 +142,13 @@ class EntregaController
                         (int)$_POST['id_produto'],
                         (int)$_POST['quantidade']
                     );
+                    salvarMensagem('success', 'Produto adicionado à entrega com sucesso!');
                     header('Location: entregas.php');
                     exit;
                 } catch (Exception $e) {
-                    // Pode ocorrer se o produto já estiver vinculado (chave duplicada)
-                    $erro = 'Produto já adicionado ou erro ao vincular.';
+                    salvarMensagem('danger', 'Produto já adicionado ou erro ao vincular.');
+                    header('Location: entregas.php');
+                    exit;
                 }
             }
         }

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Controller: AuthController
  * Centraliza toda a lógica de autenticação do sistema:
@@ -109,14 +109,14 @@ class AuthController {
      * MÉTODO: trocarSenha
      * Permite que o usuário autenticado defina uma nova senha pessoal.
      * Fluxo:
-     *  1. Garante que o usuário está logado (via requerLogin())
+     *  1. Garante que o usuário está logado (via exigirLogin())
      *  2. No POST, valida os campos nova_senha e confirma_senha
      *  3. Persiste o hash bcrypt e desativa a flag trocar_senha
      *  4. Atualiza a sessão e redireciona para o dashboard
      * ------------------------------------------------------- */
     public function trocarSenha(): void {
         // Garante que apenas usuários autenticados acessem esta página
-        requerLogin();
+        exigirLogin();
 
         // Variáveis de feedback para a view
         $erro    = '';

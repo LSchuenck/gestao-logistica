@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Arquivo: controller/ViagemController.php
  * Finalidade: Controller do módulo de Viagens.
@@ -72,7 +72,7 @@ class ViagemController
                 $idRota = $this->dao->buscarIdRota($idViagem);
 
                 if ($idRota !== false) {
-                    $this->dao->alterarStatus($idViagem, (int)$idRota, $novoStatus);
+                    $this->dao->atualizarStatus($idViagem, (int)$idRota, $novoStatus);
                 }
             }
 
@@ -92,7 +92,7 @@ class ViagemController
              * ------------------------------------------------------------- */
             if ($_POST['acao'] === 'nova_viagem') {
                 try {
-                    $this->dao->criarViagem(
+                    $this->dao->inserir(
                         (int)$_POST['id_rota'],
                         $_POST['data_saida'],
                         $_POST['data_chegada_prevista']

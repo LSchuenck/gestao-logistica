@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Controller: UsuarioController
  * Gerencia o módulo de usuários do sistema.
@@ -49,7 +49,7 @@ class UsuarioController {
      * com base no método HTTP e nos parâmetros da requisição.
      * Ao final, define as variáveis de template e inclui a view.
      * ------------------------------------------------------- */
-    public function handle(): void {
+    public function processar(): void {
         // Variáveis de feedback inicializadas como vazio
         $erro    = '';
         $sucesso = '';

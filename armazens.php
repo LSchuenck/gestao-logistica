@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * armazens.php
  * Entry point da página de gerenciamento de armazéns.
@@ -8,7 +8,7 @@
 
 // Carrega o módulo de autenticação e garante que apenas ADMIN ou GERENTE acessem esta página
 require_once 'config/auth.php';
-requerPerfil(['ADMIN', 'GERENTE']);
+exigirPerfil(['ADMIN', 'GERENTE']);
 
 // Inclui a conexão com o banco de dados via PDO
 include 'config/conexao.php';
@@ -23,4 +23,4 @@ $armazemDao        = new ArmazemDao($pdo);
 $armazemController = new ArmazemController($armazemDao);
 
 // Executa o controller: processa GET/POST e inclui a view
-$armazemController->executar();
+$armazemController->processar();

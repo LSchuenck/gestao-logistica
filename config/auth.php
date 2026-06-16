@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Arquivo: config/auth.php
  * Finalidade: Centraliza as funções de autenticação, controle de acesso por perfil
@@ -13,13 +13,28 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 /*
- * Função: requerLogin()
+ * Funções de flash message — mensagens de feedback entre requisições (PRG pattern).
+ * salvarMensagem() persiste a mensagem na sessão; obterMensagem() a lê e apaga em seguida.
+ */
+function salvarMensagem(string $tipo, string $msg): void {
+    $_SESSION['_flash'] = ['tipo' => $tipo, 'msg' => $msg];
+}
+
+function obterMensagem(): ?array {
+    if (empty($_SESSION['_flash'])) return null;
+    $f = $_SESSION['_flash'];
+    unset($_SESSION['_flash']);
+    return $f;
+}
+
+/*
+ * Função: exigirLogin()
  * Verifica se o usuário está autenticado (possui sessão ativa).
  * Se não estiver logado, redireciona para a página de login.
  * Se estiver logado mas precisar trocar a senha, redireciona para a
  * página de troca de senha (exceto se já estiver nessa página).
  */
-function requerLogin() {
+function exigirLogin() {
     // Verifica se a variável de sessão do usuário está vazia (não autenticado)
     if (empty($_SESSION['usuario'])) {
         header('Location: login.php');
@@ -34,17 +49,17 @@ function requerLogin() {
 }
 
 /*
- * Função: requerPerfil(array $perfis)
+ * Função: exigirPerfil(array $perfis)
  * Verifica se o usuário autenticado possui um dos perfis permitidos para acessar a página.
- * Primeiro garante que o usuário está logado (chama requerLogin()),
+ * Primeiro garante que o usuário está logado (chama exigirLogin()),
  * depois confere se o perfil dele está na lista de perfis autorizados.
  * Se não tiver permissão, redireciona para o dashboard com aviso de acesso negado.
  *
- * Exemplo de uso: requerPerfil(['ADMIN', 'GERENTE']);
+ * Exemplo de uso: exigirPerfil(['ADMIN', 'GERENTE']);
  */
-function requerPerfil(array $perfis) {
+function exigirPerfil(array $perfis) {
     // Garante autenticação antes de verificar o perfil
-    requerLogin();
+    exigirLogin();
     // Verifica se o perfil do usuário está entre os perfis permitidos
     if (!in_array($_SESSION['usuario']['perfil'], $perfis)) {
         // Redireciona com parâmetro "acesso=negado" para exibir mensagem de erro no dashboard
@@ -54,12 +69,12 @@ function requerPerfil(array $perfis) {
 }
 
 /*
- * Função: renderNavbar()
+ * Função: exibirNavegacao()
  * Gera e exibe o menu lateral (sidebar) do sistema com base no perfil do usuário logado.
  * Inclui: logotipo, itens de navegação agrupados por seção, informações do usuário e botão de logout.
  * O menu é responsivo: pode ser expandido/recolhido pelo usuário (preferência salva no localStorage).
  */
-function renderNavbar() {
+function exibirNavegacao() {
     // Obtém os dados do usuário da sessão com valores padrão vazios para evitar erros
     $u      = $_SESSION['usuario'] ?? [];
     $nome   = htmlspecialchars($u['nome'] ?? '');   // Sanitiza o nome para evitar XSS
@@ -238,4 +253,29 @@ body.sidebar-open{padding-left:var(--sb-w-open)}
   };
 })();
 </script>';
+
+    // Exibe flash message da requisição anterior (sucesso ou erro)
+    $flash = obterMensagem();
+    if ($flash) {
+        $alertClass = $flash['tipo'] === 'success' ? 'alert-success' : 'alert-danger';
+        $icon       = $flash['tipo'] === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill';
+        $msg        = htmlspecialchars($flash['msg']);
+        echo '
+<div id="_flash_msg" class="alert ' . $alertClass . ' d-flex align-items-center gap-2 shadow border-0"
+     style="position:fixed;top:1.25rem;right:1.25rem;z-index:10000;min-width:280px;max-width:460px;border-radius:12px;padding:.85rem 1.1rem">
+  <i class="bi ' . $icon . ' fs-5 flex-shrink-0"></i>
+  <span class="flex-grow-1">' . $msg . '</span>
+  <button onclick="this.parentElement.remove()" class="btn-close flex-shrink-0" style="font-size:.75rem"></button>
+</div>
+<script>
+(function(){
+  var el=document.getElementById("_flash_msg");
+  if(!el)return;
+  setTimeout(function(){
+    el.style.transition="opacity .3s";el.style.opacity="0";
+    setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},300);
+  },5000);
+})();
+</script>';
+    }
 }

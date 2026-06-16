@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Controller: OperacaoController
  *
@@ -37,7 +37,7 @@ class OperacaoController {
      * Ponto de entrada do controller.
      * Processa GET e POST, depois carrega os dados para a view.
      */
-    public function executar(): void {
+    public function processar(): void {
         $this->_processarGet();
         $this->_processarPost();
         $this->_carregarView();
@@ -74,10 +74,10 @@ class OperacaoController {
         if (isset($_GET['excluir_rota'])) {
             try {
                 $this->dao->excluirRota((int) $_GET['excluir_rota']);
+                salvarMensagem('success', 'Operação removida com sucesso!');
                 header("Location: operacoes.php"); exit;
-            } catch (Exception $e) {
-                // Armazena o erro e deixa a página carregar normalmente (com a mensagem)
-                $_SESSION['_op_erro'] = "Não é possível excluir: existe viagem vinculada a esta operação.";
+            } catch (Exception) {
+                salvarMensagem('danger', 'Não é possível excluir: existe viagem vinculada a esta operação.');
                 header("Location: operacoes.php"); exit;
             }
         }
@@ -124,8 +124,8 @@ class OperacaoController {
                         // INICIADA ou EM_TRANSITO: apenas atualiza o status da viagem
                         $this->dao->atualizarStatusViagem($idViagem, $novoStatus);
                     }
-                } catch (Exception $e) {
-                    $_SESSION['_op_erro'] = "Erro ao atualizar status da viagem.";
+                } catch (Exception) {
+                    salvarMensagem('danger', 'Erro ao atualizar status da viagem.');
                 }
             }
 
@@ -147,26 +147,46 @@ class OperacaoController {
         }
 
         /* -----------------------------------------------------------------
-         * Criar nova rota com veículo, motorista e entregas opcionais
+         * Criar nova rota com veículo, motorista e entregas opcionais.
+         * Valida o peso total das entregas contra a capacidade do veículo
+         * antes de persistir — rejeita e exibe mensagem se exceder.
          * ----------------------------------------------------------------- */
         if ($_POST['acao'] === 'nova_rota') {
             try {
+                $idVeiculo  = (int) $_POST['id_veiculo'];
                 $idEntregas = (!empty($_POST['id_entregas']) && is_array($_POST['id_entregas']))
                     ? $_POST['id_entregas']
                     : [];
 
+                // Valida peso total das entregas selecionadas contra capacidade_carga do veículo
+                if (!empty($idEntregas)) {
+                    $capacidade = $this->dao->buscarCapacidadeVeiculo($idVeiculo);
+                    if ($capacidade !== null && $capacidade > 0) {
+                        $pesoTotal = $this->dao->somarPesoEntregas($idEntregas);
+                        if ($pesoTotal > $capacidade) {
+                            salvarMensagem('danger', sprintf(
+                                'Peso total das entregas (%s kg) ultrapassa a capacidade do veículo (%s kg). Remova entregas ou escolha outro veículo.',
+                                number_format($pesoTotal, 0, ',', '.'),
+                                number_format($capacidade, 0, ',', '.')
+                            ));
+                            header("Location: operacoes.php"); exit;
+                        }
+                    }
+                }
+
                 $this->dao->criarRota(
-                    (int)   $_POST['id_veiculo'],
-                    (int)   $_POST['id_motorista'],
+                    $idVeiculo,
+                    (int) $_POST['id_motorista'],
                     isset($_POST['distancia']) && $_POST['distancia'] !== ''
                         ? floatval($_POST['distancia'])
                         : null,
                     $idEntregas
                 );
 
+                salvarMensagem('success', 'Operação criada com sucesso!');
                 header("Location: operacoes.php"); exit;
-            } catch (Exception $e) {
-                $_SESSION['_op_erro'] = "Erro ao criar operação.";
+            } catch (Exception) {
+                salvarMensagem('danger', 'Erro ao criar operação.');
                 header("Location: operacoes.php"); exit;
             }
         }
@@ -180,9 +200,10 @@ class OperacaoController {
                     (int) $_POST['id_rota'],
                     (int) $_POST['id_entrega']
                 );
+                salvarMensagem('success', 'Entrega adicionada à operação com sucesso!');
                 header("Location: operacoes.php"); exit;
-            } catch (Exception $e) {
-                $_SESSION['_op_erro'] = "Entrega já vinculada ou não disponível.";
+            } catch (Exception) {
+                salvarMensagem('danger', 'Entrega já vinculada ou não disponível.');
                 header("Location: operacoes.php"); exit;
             }
         }
@@ -199,9 +220,10 @@ class OperacaoController {
                     (string) $_POST['nova_origem_nome'],
                     floatval($_POST['nova_distancia'])
                 );
+                salvarMensagem('success', 'Desvio de rota registrado com sucesso!');
                 header("Location: operacoes.php"); exit;
-            } catch (Exception $e) {
-                $_SESSION['_op_erro'] = "Erro ao registrar desvio de rota.";
+            } catch (Exception) {
+                salvarMensagem('danger', 'Erro ao registrar desvio de rota.');
                 header("Location: operacoes.php"); exit;
             }
         }
@@ -216,9 +238,10 @@ class OperacaoController {
                     (string) $_POST['local'],
                     (string) $_POST['motivo']
                 );
+                salvarMensagem('success', 'Parada registrada com sucesso!');
                 header("Location: operacoes.php"); exit;
-            } catch (Exception $e) {
-                $_SESSION['_op_erro'] = "Erro ao registrar parada.";
+            } catch (Exception) {
+                salvarMensagem('danger', 'Erro ao registrar parada.');
                 header("Location: operacoes.php"); exit;
             }
         }
@@ -234,9 +257,10 @@ class OperacaoController {
                     (string) $_POST['data_chegada_prevista'],
                     (int)    $_SESSION['usuario']['id']
                 );
+                salvarMensagem('success', 'Viagem iniciada com sucesso!');
                 header("Location: operacoes.php"); exit;
-            } catch (Exception $e) {
-                $_SESSION['_op_erro'] = "Erro ao iniciar viagem.";
+            } catch (Exception) {
+                salvarMensagem('danger', 'Erro ao iniciar viagem.');
                 header("Location: operacoes.php"); exit;
             }
         }
@@ -251,12 +275,8 @@ class OperacaoController {
      * As variáveis são extraídas no escopo do include para ficarem disponíveis na view.
      */
     private function _carregarView(): void {
-        // Recupera mensagem de erro persistida via sessão (POST/GET → redirect → GET)
+        // Flash messages são exibidas pelo exibirNavegacao(); $erro mantido vazio para compatibilidade com a view
         $erro = '';
-        if (!empty($_SESSION['_op_erro'])) {
-            $erro = $_SESSION['_op_erro'];
-            unset($_SESSION['_op_erro']);
-        }
 
         // Dados para os selects e painel lateral de entregas pendentes
         $transportadoras    = $this->dao->listarTransportadoras();

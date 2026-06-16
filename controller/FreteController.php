@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Arquivo: controller/FreteController.php
  * Finalidade: Controller do módulo de Fretes.
@@ -62,10 +62,13 @@ class FreteController
         if (isset($_GET['excluir'])) {
             try {
                 $this->dao->excluir((int)$_GET['excluir']);
+                salvarMensagem('success', 'Frete removido com sucesso!');
                 header("Location: frete.php");
                 exit;
             } catch (Exception $e) {
-                $erro = "Erro ao excluir frete.";
+                salvarMensagem('danger', 'Erro ao excluir frete.');
+                header("Location: frete.php");
+                exit;
             }
         }
 
@@ -89,11 +92,13 @@ class FreteController
                     $_POST['nota_fiscal'] ?? '',
                     $dataEmissao
                 );
+                salvarMensagem('success', 'Frete registrado com sucesso!');
                 header("Location: frete.php");
                 exit;
             } catch (Exception $e) {
-                // Erro mais comum: viagem já possui frete (violação de chave única)
-                $erro = "Erro ao registrar frete: viagem já possui frete ou dados inválidos.";
+                salvarMensagem('danger', 'Erro ao registrar frete: viagem já possui frete ou dados inválidos.');
+                header("Location: frete.php");
+                exit;
             }
         }
 

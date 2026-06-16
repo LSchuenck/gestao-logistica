@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Arquivo: controller/DashboardController.php
  * Finalidade: Controller do Dashboard principal (index).
@@ -45,28 +45,28 @@ class DashboardController
          * INDICADORES DE ENTREGAS
          * Contagens por status para os cards da seção "Entregas".
          * ----------------------------------------------------------------- */
-        $entregas_pendentes = $this->dao->entregasPendentes();
-        $entregas_transito  = $this->dao->entregasEmTransito();
-        $entregas_atrasadas = $this->dao->entregasAtrasadas();
+        $entregas_pendentes = $this->dao->contarEntregasPendentes();
+        $entregas_transito  = $this->dao->contarEntregasEmTransito();
+        $entregas_atrasadas = $this->dao->contarEntregasAtrasadas();
 
         /* -----------------------------------------------------------------
          * INDICADORES OPERACIONAIS
          * Dados para os cards da seção "Operação".
          * ----------------------------------------------------------------- */
-        $viagens_ativas      = $this->dao->viagensAtivas();
-        $alertas_recentes    = $this->dao->alertasAtivos();
-        $veiculos_disponiveis = $this->dao->veiculosDisponiveis();
+        $viagens_ativas      = $this->dao->contarViagensAtivas();
+        $alertas_recentes    = $this->dao->contarAlertasAtivos();
+        $veiculos_disponiveis = $this->dao->contarVeiculosDisponiveis();
 
         /* -----------------------------------------------------------------
          * INDICADORES FINANCEIROS
          * ----------------------------------------------------------------- */
-        $frete_mes = $this->dao->freteMesAtual();
+        $frete_mes = $this->dao->somarFreteMesAtual();
 
         /* -----------------------------------------------------------------
          * INDICADORES DE RECURSOS HUMANOS
          * Não exibido em card dedicado mas disponível para a view usar.
          * ----------------------------------------------------------------- */
-        $motoristas_ativos = $this->dao->motoristasAtivos();
+        $motoristas_ativos = $this->dao->contarMotoristasAtivos();
 
         // Carrega a view do dashboard com todas as variáveis preparadas
         include 'views/index.php';

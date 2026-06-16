@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * trocar_senha.php
  * Entry point do fluxo de troca de senha.
@@ -8,10 +8,10 @@
  *  3. Instanciar o controller e delegar o processamento
  * A lógica de validação, persistência e redirecionamento reside
  * em AuthController::trocarSenha().
- * Nota: requerLogin() é chamado dentro do método trocarSenha().
+ * Nota: exigirLogin() é chamado dentro do método trocarSenha().
  */
 
-// Carrega as funções de autenticação (requerLogin, requerPerfil, renderNavbar)
+// Carrega as funções de autenticação (exigirLogin, exigirPerfil, exibirNavegacao)
 require_once 'config/auth.php';
 
 // Estabelece a conexão PDO com o banco de dados

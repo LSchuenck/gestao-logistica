@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * View: Alertas
  *
@@ -28,7 +28,7 @@
 </head>
 <body class="bg-light">
 <!-- Renderiza a barra de navegação superior do sistema -->
-<?php renderNavbar(); ?>
+<?php exibirNavegacao(); ?>
 <div class="container-fluid px-4 mb-5">
 
     <!-- ===== CARDS DE KPI DE ALERTAS ===== -->

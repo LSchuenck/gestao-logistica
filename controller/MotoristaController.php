@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Controller: MotoristaController
  * Trata as requisições GET/POST da página de gerenciamento de motoristas.
@@ -12,7 +12,7 @@ class MotoristaController {
     /**
      * Ponto de entrada único — processa a requisição e inclui a view.
      */
-    public function handle(): void {
+    public function processar(): void {
         $erro = "";
 
         // --- EXCLUSÃO DE MOTORISTA ---
@@ -20,12 +20,13 @@ class MotoristaController {
         if (isset($_GET['excluir'])) {
             try {
                 $this->dao->excluir((int) $_GET['excluir']);
-
+                salvarMensagem('success', 'Motorista removido com sucesso!');
                 header('Location: motoristas.php');
                 exit;
             } catch (Exception $e) {
-                // Falha esperada: motorista possui rotas ou viagens vinculadas (constraint FK)
-                $erro = "Não é possível excluir: este motorista possui rotas vinculadas no sistema.";
+                salvarMensagem('danger', 'Não é possível excluir: este motorista possui rotas vinculadas no sistema.');
+                header('Location: motoristas.php');
+                exit;
             }
         }
 
@@ -43,15 +44,19 @@ class MotoristaController {
                     'validade_cnh'      => $validade,
                     'telefone'          => $_POST['telefone'],
                 ];
-                if (($_POST['acao'] ?? '') === 'editar') {
+                $edicao = ($_POST['acao'] ?? '') === 'editar';
+                if ($edicao) {
                     $this->dao->atualizar((int) $_POST['id_motorista'], $dados);
                 } else {
                     $this->dao->inserir($dados);
                 }
+                salvarMensagem('success', $edicao ? 'Motorista atualizado com sucesso!' : 'Motorista cadastrado com sucesso!');
                 header('Location: motoristas.php');
                 exit;
             } catch (Exception $e) {
-                $erro = "Erro ao salvar: CPF ou CNH já registrado, ou dados inválidos.";
+                salvarMensagem('danger', 'Erro ao salvar: CPF ou CNH já registrado, ou dados inválidos.');
+                header('Location: motoristas.php');
+                exit;
             }
         }
 

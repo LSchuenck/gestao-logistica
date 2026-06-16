@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Controller: ClienteController
  *
@@ -35,7 +35,7 @@ class ClienteController
      *
      * @return void
      */
-    public function executar(): void
+    public function processar(): void
     {
         $erro = "";
 
@@ -47,11 +47,13 @@ class ClienteController
         if (isset($_GET['excluir'])) {
             try {
                 $this->clienteDao->excluir((int) $_GET['excluir']);
-                // Redireciona para evitar reenvio acidental ao recarregar a página (PRG)
+                salvarMensagem('success', 'Cliente removido com sucesso!');
                 header("Location: clientes.php");
                 exit;
             } catch (Exception $e) {
-                $erro = "Não é possível excluir: existem entregas vinculadas a este cliente.";
+                salvarMensagem('danger', 'Não é possível excluir: existem entregas vinculadas a este cliente.');
+                header("Location: clientes.php");
+                exit;
             }
         }
 
@@ -75,15 +77,19 @@ class ClienteController
                     'cidade'      => $_POST['cidade']      ?? '',
                     'estado'      => $_POST['estado']      ?? '',
                 ];
-                if (($_POST['acao'] ?? '') === 'editar') {
+                $edicao = ($_POST['acao'] ?? '') === 'editar';
+                if ($edicao) {
                     $this->clienteDao->atualizar((int) $_POST['id_cliente'], $dadosCliente, $dadosEndereco);
                 } else {
                     $this->clienteDao->inserir($dadosCliente, $dadosEndereco);
                 }
+                salvarMensagem('success', $edicao ? 'Cliente atualizado com sucesso!' : 'Cliente cadastrado com sucesso!');
                 header("Location: clientes.php");
                 exit;
             } catch (Exception $e) {
-                $erro = "Erro ao salvar cliente.";
+                salvarMensagem('danger', 'Erro ao salvar cliente.');
+                header("Location: clientes.php");
+                exit;
             }
         }
 

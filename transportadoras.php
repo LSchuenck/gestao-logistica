@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * transportadoras.php
  * Entry point do módulo de transportadoras.
@@ -7,7 +7,7 @@
 
 // Garante que apenas usuários com perfil ADMIN ou GERENTE possam acessar esta página
 require_once 'config/auth.php';
-requerPerfil(['ADMIN', 'GERENTE']);
+exigirPerfil(['ADMIN', 'GERENTE']);
 
 // Estabelece a conexão PDO com o banco de dados ($pdo)
 include 'config/conexao.php';
@@ -21,4 +21,4 @@ require_once 'controller/TransportadoraController.php';
 (new TransportadoraController(
     new TransportadoraDao($pdo),
     new EnderecoDao($pdo)
-))->handle();
+))->processar();

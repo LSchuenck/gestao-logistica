@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Arquivo: index.php
  * Finalidade: Entry point do Dashboard principal do sistema.
@@ -8,12 +8,12 @@
  * Esta é a página inicial exibida após o login, funcionando como um
  * painel de controle (dashboard) com indicadores resumidos das operações.
  *
- * Acesso: qualquer usuário logado (requerLogin).
+ * Acesso: qualquer usuário logado (exigirLogin).
  */
 
 // Verifica autenticação; redireciona para login.php se necessário
 require_once 'config/auth.php';
-requerLogin();
+exigirLogin();
 
 // Estabelece a conexão com o banco de dados via PDO
 include 'config/conexao.php';

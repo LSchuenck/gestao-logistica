@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * View: Operações
  *
@@ -38,7 +38,7 @@
 </head>
 <body class="bg-light">
 <!-- Renderiza a barra de navegação superior do sistema -->
-<?php renderNavbar(); ?>
+<?php exibirNavegacao(); ?>
 <div class="container-fluid px-4 mb-5">
 
     <!-- Bloco PHP: exibe alerta de aviso se houver mensagem de erro do controller -->
@@ -158,9 +158,12 @@
                                    class="form-control form-control-sm" placeholder="Calculável pelo mapa acima">
                         </div>
 
+                        <!-- Aviso de excesso de carga (exibido dinamicamente pelo script.js) -->
+                        <div id="aviso-peso" class="alert alert-danger py-2 small mb-0" style="display:none"></div>
+
                         <!-- Botão de submissão para criar a operação -->
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-sm w-100 fw-bold py-2">
+                            <button type="submit" id="btn-criar-op" class="btn btn-primary btn-sm w-100 fw-bold py-2">
                                 <i class="bi bi-check-circle me-1"></i>Criar Operação
                             </button>
                         </div>

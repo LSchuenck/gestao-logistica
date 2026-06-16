@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * entregas.php
  * ------------
@@ -18,7 +18,7 @@
  */
 
 require_once 'config/auth.php';
-requerLogin(); // Garante que apenas usuários autenticados acessem este módulo
+exigirLogin(); // Garante que apenas usuários autenticados acessem este módulo
 
 include 'config/conexao.php'; // Disponibiliza $pdo
 
@@ -32,4 +32,4 @@ $entregaDao        = new EntregaDao($pdo);
 $entregaController = new EntregaController($entregaDao);
 
 // Delega todo o processamento (ações GET/POST + carregamento de view) ao controller
-$entregaController->handle();
+$entregaController->processar();

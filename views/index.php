@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * View: Painel Principal (Dashboard)
  *
@@ -33,7 +33,7 @@
 </head>
 <body class="bg-light">
     <!-- Renderiza a barra de navegação superior do sistema -->
-    <?php renderNavbar(); ?>
+    <?php exibirNavegacao(); ?>
 
     <!-- Bloco PHP: exibe alerta se o acesso à página anterior foi negado -->
     <?php if ($acesso_negado ?? false): ?>

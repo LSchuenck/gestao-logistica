@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Arquivo: dao/ViagemDao.php
  * Finalidade: Data Access Object (DAO) para o módulo de Viagens.
@@ -137,7 +137,7 @@ class ViagemDao
      * @return void
      * @throws Exception Em caso de falha durante a transação
      */
-    public function criarViagem(int $idRota, string $dataSaida, string $dataChegadaPrevista): void
+    public function inserir(int $idRota, string $dataSaida, string $dataChegadaPrevista): void
     {
         $this->pdo->beginTransaction();
         try {
@@ -183,7 +183,7 @@ class ViagemDao
      * @param string $novoStatus Novo status desejado
      * @return void
      */
-    public function alterarStatus(int $idViagem, int $idRota, string $novoStatus): void
+    public function atualizarStatus(int $idViagem, int $idRota, string $novoStatus): void
     {
         $this->pdo->beginTransaction();
 

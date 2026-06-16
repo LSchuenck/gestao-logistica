@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * estoque.php
  * -----------
@@ -19,7 +19,7 @@
  */
 
 require_once 'config/auth.php';
-requerLogin(); // Garante que apenas usuários autenticados acessem este módulo
+exigirLogin(); // Garante que apenas usuários autenticados acessem este módulo
 
 include 'config/conexao.php'; // Disponibiliza $pdo
 
@@ -38,4 +38,4 @@ $movimentacaoDao  = new MovimentacaoDao($pdo);
 $estoqueController = new EstoqueController($estoqueDao, $movimentacaoDao, $idUsuario);
 
 // Delega todo o processamento (ação POST + carregamento de view) ao controller
-$estoqueController->handle();
+$estoqueController->processar();

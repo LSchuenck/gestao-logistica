@@ -76,6 +76,7 @@ class OperacaoDao {
     public function listarEntregasPendentes(): array {
         return $this->pdo->query("
             SELECT e.id_entrega, c.nome AS cliente, e.data_prevista,
+                e.peso_total,
                 en.cidade, en.estado,
                 a.id_armazem, a.nome AS armazem_nome,
                 en_a.cidade AS armazem_cidade, en_a.estado AS armazem_estado
@@ -87,6 +88,36 @@ class OperacaoDao {
             WHERE e.status = 'PENDENTE'
             ORDER BY e.data_prevista ASC, e.id_entrega DESC
         ")->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Retorna a capacidade de carga (kg) do veículo informado.
+     * Usado para validar o peso total das entregas antes de criar a operação.
+     *
+     * @param int $idVeiculo ID do veículo
+     * @return float|null Capacidade em kg, ou null se não cadastrada
+     */
+    public function buscarCapacidadeVeiculo(int $idVeiculo): ?float {
+        $stmt = $this->pdo->prepare("SELECT capacidade_carga FROM veiculo WHERE id_veiculo = ?");
+        $stmt->execute([$idVeiculo]);
+        $val = $stmt->fetchColumn();
+        return $val !== false ? (float) $val : null;
+    }
+
+    /**
+     * Soma o peso_total de um conjunto de entregas.
+     * Usado para comparar contra capacidade_carga do veículo selecionado.
+     *
+     * @param array $idEntregas Lista de IDs de entrega
+     * @return float Peso somado em kg (0 se nenhuma entrega tiver peso cadastrado)
+     */
+    public function somarPesoEntregas(array $idEntregas): float {
+        $placeholders = implode(',', array_fill(0, count($idEntregas), '?'));
+        $stmt = $this->pdo->prepare(
+            "SELECT COALESCE(SUM(peso_total), 0) FROM entrega WHERE id_entrega IN ($placeholders)"
+        );
+        $stmt->execute($idEntregas);
+        return (float) $stmt->fetchColumn();
     }
 
     /**

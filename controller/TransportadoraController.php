@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Controller: TransportadoraController
  * Trata as requisições GET/POST da página de gerenciamento de transportadoras.
@@ -15,7 +15,7 @@ class TransportadoraController {
     /**
      * Ponto de entrada único — processa a requisição e inclui a view.
      */
-    public function handle(): void {
+    public function processar(): void {
         $erro = "";
 
         // --- EXCLUSÃO DE TRANSPORTADORA ---
@@ -28,11 +28,13 @@ class TransportadoraController {
                 // Remove transportadora e endereço em transação atômica no DAO
                 $this->dao->excluirComEndereco($id, $idEndereco);
 
+                salvarMensagem('success', 'Transportadora removida com sucesso!');
                 header('Location: transportadoras.php');
                 exit;
             } catch (Exception $e) {
-                // Falha esperada: transportadora possui motoristas ou veículos vinculados (constraint FK)
-                $erro = "Não é possível excluir: existem motoristas ou veículos vinculados a esta transportadora.";
+                salvarMensagem('danger', 'Não é possível excluir: existem motoristas ou veículos vinculados a esta transportadora.');
+                header('Location: transportadoras.php');
+                exit;
             }
         }
 
@@ -49,7 +51,8 @@ class TransportadoraController {
         // Acionada via POST ao enviar o formulário
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                if (($_POST['acao'] ?? '') === 'editar') {
+                $edicao = ($_POST['acao'] ?? '') === 'editar';
+                if ($edicao) {
                     $id = (int) $_POST['id_transportadora'];
                     $idEndereco = $this->dao->buscarIdEndereco($id);
                     $this->dao->atualizar($id, [
@@ -73,10 +76,13 @@ class TransportadoraController {
                         'id_endereco'   => $idEndereco,
                     ]);
                 }
+                salvarMensagem('success', $edicao ? 'Transportadora atualizada com sucesso!' : 'Transportadora cadastrada com sucesso!');
                 header('Location: transportadoras.php');
                 exit;
             } catch (Exception $e) {
-                $erro = "Erro ao salvar: CNPJ já registrado ou dados inválidos.";
+                salvarMensagem('danger', 'Erro ao salvar: CNPJ já registrado ou dados inválidos.');
+                header('Location: transportadoras.php');
+                exit;
             }
         }
 

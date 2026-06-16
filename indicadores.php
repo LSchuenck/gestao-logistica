@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Arquivo: indicadores.php
  * Finalidade: Entry point do módulo de Indicadores de Desempenho (KPIs).
@@ -10,7 +10,7 @@
 
 // Verifica autenticação com perfil ADMIN ou GERENTE; redireciona se não autorizado
 require_once 'config/auth.php';
-requerPerfil(['ADMIN', 'GERENTE']);
+exigirPerfil(['ADMIN', 'GERENTE']);
 
 // Estabelece a conexão com o banco de dados via PDO
 include 'config/conexao.php';

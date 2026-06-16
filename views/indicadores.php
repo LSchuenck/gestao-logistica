@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * View: Indicadores Logísticos
  *
@@ -45,7 +45,7 @@
 </head>
 <body class="bg-light">
 <!-- Renderiza a barra de navegação superior do sistema -->
-<?php renderNavbar(); ?>
+<?php exibirNavegacao(); ?>
 
 <div class="container mb-5">
 

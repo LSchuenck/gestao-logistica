@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * usuarios.php
  * Entry point do módulo de gerenciamento de usuários.
@@ -13,7 +13,7 @@
 
 // Verifica autenticação e restringe o acesso somente ao perfil ADMIN
 require_once 'config/auth.php';
-requerPerfil(['ADMIN']);
+exigirPerfil(['ADMIN']);
 
 // Estabelece a conexão PDO com o banco de dados
 require_once 'config/conexao.php';
@@ -28,4 +28,4 @@ $dao        = new UsuarioDao($pdo);
 $controller = new UsuarioController($dao);
 
 // Delega todo o processamento (GET/POST, listagem, feedback e view) ao Controller
-$controller->handle();
+$controller->processar();

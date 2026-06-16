@@ -1,4 +1,4 @@
-// ── Modal "Registrar Parada Não Programada" ───────────────────────────────────
+﻿// ── Modal "Registrar Parada Não Programada" ───────────────────────────────────
 (function () {
     const modal = document.getElementById('modalParada');
     if (!modal) return;
@@ -52,7 +52,7 @@
 
         if (!mapaDataEl) {
             info.innerHTML = '<small class="text-muted"><i class="bi bi-cursor me-1"></i>Clique no mapa para definir a posição do veículo.</small>';
-            _bindMapClick(info);
+            _configurarCliqueNoMapa(info);
             return;
         }
 
@@ -64,7 +64,7 @@
         for (let i = 0; i < entregas.length; i++) {
             const ent = entregas[i];
             if (!ent.cidade) continue;
-            if (i > 0) await _sleep(1100);
+            if (i > 0) await _aguardar(1100);
             const coord = await _geocodificar([ent.cidade, ent.estado, 'Brasil'].filter(Boolean).join(', '));
             if (coord) {
                 _destinoCoords.push(coord);
@@ -75,7 +75,7 @@
         }
 
         if (dados.origem && dados.origem.cidade) {
-            if (entregas.length > 0) await _sleep(1100);
+            if (entregas.length > 0) await _aguardar(1100);
             const coordOrig = await _geocodificar(
                 [dados.origem.cidade, dados.origem.estado, 'Brasil'].filter(Boolean).join(', ')
             );
@@ -94,10 +94,10 @@
         }
 
         info.innerHTML = '<small class="text-muted"><i class="bi bi-cursor me-1"></i>Clique no mapa para definir a nova posição do veículo.</small>';
-        _bindMapClick(info);
+        _configurarCliqueNoMapa(info);
     });
 
-    function _bindMapClick(info) {
+    function _configurarCliqueNoMapa(info) {
         _mapaDesvio.on('click', async function (ev) {
             const { lat, lng } = ev.latlng;
 
@@ -158,24 +158,24 @@
                     style: { color: '#fd7e14', weight: 4, opacity: 0.9 }
                 }).addTo(_mapaDesvio);
                 _mapaDesvio.fitBounds(L.geoJSON(rdata.routes[0].geometry).getBounds().pad(0.1));
-                _setResultado(nomeLoc, distKm, info, false);
+                _exibirResultado(nomeLoc, distKm, info, false);
 
             } catch (_) {
                 let soma = 0;
                 if (_origemOriginalCoord) {
-                    soma += _haversineKm(_origemOriginalCoord.lat, _origemOriginalCoord.lon, lat, lng);
+                    soma += _calcularDistanciaKm(_origemOriginalCoord.lat, _origemOriginalCoord.lon, lat, lng);
                 }
                 let prev = { lat, lon: lng };
                 for (const d of _destinoCoords) {
-                    soma += _haversineKm(prev.lat, prev.lon, d.lat, d.lon);
+                    soma += _calcularDistanciaKm(prev.lat, prev.lon, d.lat, d.lon);
                     prev = d;
                 }
-                _setResultado(nomeLoc, parseFloat(soma.toFixed(1)), info, true);
+                _exibirResultado(nomeLoc, parseFloat(soma.toFixed(1)), info, true);
             }
         });
     }
 
-    function _setResultado(nomeLoc, distKm, info, estimativa) {
+    function _exibirResultado(nomeLoc, distKm, info, estimativa) {
         document.getElementById('desvio-nova-distancia').value = distKm;
         const tag = estimativa
             ? `<span class="badge bg-secondary">~${distKm} km (estimativa)</span>`
@@ -190,7 +190,7 @@
         document.getElementById('btn-confirmar-desvio').disabled = false;
     }
 
-    function _haversineKm(lat1, lon1, lat2, lon2) {
+    function _calcularDistanciaKm(lat1, lon1, lat2, lon2) {
         const R    = 6371;
         const dLat = (lat2 - lat1) * Math.PI / 180;
         const dLon = (lon2 - lon1) * Math.PI / 180;

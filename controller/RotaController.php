@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Controller: RotaController
  * Processa as requisições HTTP do módulo de Rotas.
@@ -45,7 +45,7 @@ class RotaController {
      *
      * @return void
      */
-    public function handle(): void {
+    public function processar(): void {
         // Variável de erro inicializada vazia; será preenchida se alguma operação falhar
         $erro = "";
 

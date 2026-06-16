@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Controller: EstoqueController
  *
@@ -45,7 +45,7 @@ class EstoqueController
      *
      * @return void
      */
-    public function handle(): void
+    public function processar(): void
     {
         $erro    = '';
         $sucesso = '';

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Controller: ArmazemController
  *
@@ -35,7 +35,7 @@ class ArmazemController
      *
      * @return void
      */
-    public function executar(): void
+    public function processar(): void
     {
         $erro = "";
 
@@ -47,11 +47,13 @@ class ArmazemController
         if (isset($_GET['excluir'])) {
             try {
                 $this->armazemDao->excluir((int) $_GET['excluir']);
-                // Redireciona para evitar reenvio acidental ao recarregar a página (PRG)
+                salvarMensagem('success', 'Armazém removido com sucesso!');
                 header("Location: armazens.php");
                 exit;
             } catch (Exception $e) {
-                $erro = "Não é possível excluir: existem produtos localizados neste armazém.";
+                salvarMensagem('danger', 'Não é possível excluir: existem produtos localizados neste armazém.');
+                header("Location: armazens.php");
+                exit;
             }
         }
 
@@ -71,15 +73,19 @@ class ArmazemController
                     'cidade'      => $_POST['cidade']      ?? '',
                     'estado'      => $_POST['estado']      ?? '',
                 ];
-                if (($_POST['acao'] ?? '') === 'editar') {
+                $edicao = ($_POST['acao'] ?? '') === 'editar';
+                if ($edicao) {
                     $this->armazemDao->atualizar((int) $_POST['id_armazem'], $nome, $dadosEndereco);
                 } else {
                     $this->armazemDao->inserir($nome, $dadosEndereco);
                 }
+                salvarMensagem('success', $edicao ? 'Armazém atualizado com sucesso!' : 'Armazém cadastrado com sucesso!');
                 header("Location: armazens.php");
                 exit;
             } catch (Exception $e) {
-                $erro = "Erro ao salvar armazém.";
+                salvarMensagem('danger', 'Erro ao salvar armazém.');
+                header("Location: armazens.php");
+                exit;
             }
         }
 

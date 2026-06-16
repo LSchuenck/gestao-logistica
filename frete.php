@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Arquivo: frete.php
  * Finalidade: Entry point do módulo de Fretes e Notas Fiscais.
@@ -10,7 +10,7 @@
 
 // Verifica autenticação com perfil ADMIN ou GERENTE; redireciona se não autorizado
 require_once 'config/auth.php';
-requerPerfil(['ADMIN', 'GERENTE']);
+exigirPerfil(['ADMIN', 'GERENTE']);
 
 // Estabelece a conexão com o banco de dados via PDO
 include 'config/conexao.php';

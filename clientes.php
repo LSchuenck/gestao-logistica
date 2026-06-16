@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * clientes.php
  * Entry point da página de gerenciamento de clientes.
@@ -8,7 +8,7 @@
 
 // Garante que apenas usuários com perfil ADMIN ou GERENTE possam acessar esta página
 require_once 'config/auth.php';
-requerPerfil(['ADMIN', 'GERENTE']);
+exigirPerfil(['ADMIN', 'GERENTE']);
 
 // Inclui a conexão PDO com o banco de dados
 include 'config/conexao.php';
@@ -23,4 +23,4 @@ $clienteDao        = new ClienteDao($pdo);
 $clienteController = new ClienteController($clienteDao);
 
 // Executa o controller: processa GET/POST e inclui a view
-$clienteController->executar();
+$clienteController->processar();

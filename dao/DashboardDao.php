@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Arquivo: dao/DashboardDao.php
  * Finalidade: Data Access Object (DAO) para o Dashboard principal (index).
@@ -37,7 +37,7 @@ class DashboardDao
      *
      * @return int Total de entregas pendentes
      */
-    public function entregasPendentes(): int
+    public function contarEntregasPendentes(): int
     {
         return (int)$this->pdo->query(
             "SELECT COUNT(*) FROM entrega WHERE status = 'PENDENTE'"
@@ -49,7 +49,7 @@ class DashboardDao
      *
      * @return int Total de entregas em trânsito
      */
-    public function entregasEmTransito(): int
+    public function contarEntregasEmTransito(): int
     {
         return (int)$this->pdo->query(
             "SELECT COUNT(*) FROM entrega WHERE status = 'EM_TRANSITO'"
@@ -61,7 +61,7 @@ class DashboardDao
      *
      * @return int Total de entregas atrasadas
      */
-    public function entregasAtrasadas(): int
+    public function contarEntregasAtrasadas(): int
     {
         return (int)$this->pdo->query(
             "SELECT COUNT(*) FROM entrega WHERE status = 'ATRASADA'"
@@ -77,7 +77,7 @@ class DashboardDao
      *
      * @return int Total de viagens ativas
      */
-    public function viagensAtivas(): int
+    public function contarViagensAtivas(): int
     {
         return (int)$this->pdo->query(
             "SELECT COUNT(*) FROM viagem WHERE status IN ('INICIADA', 'EM_TRANSITO')"
@@ -90,7 +90,7 @@ class DashboardDao
      *
      * @return int Total de alertas recentes
      */
-    public function alertasAtivos(): int
+    public function contarAlertasAtivos(): int
     {
         return (int)$this->pdo->query("
             SELECT
@@ -108,7 +108,7 @@ class DashboardDao
      *
      * @return int Total de veículos disponíveis
      */
-    public function veiculosDisponiveis(): int
+    public function contarVeiculosDisponiveis(): int
     {
         return (int)$this->pdo->query(
             "SELECT COUNT(*) FROM veiculo WHERE status = 'DISPONIVEL'"
@@ -125,7 +125,7 @@ class DashboardDao
      *
      * @return float Total faturado em fretes no mês atual
      */
-    public function freteMesAtual(): float
+    public function somarFreteMesAtual(): float
     {
         return (float)$this->pdo->query(
             "SELECT COALESCE(SUM(valor), 0)
@@ -144,7 +144,7 @@ class DashboardDao
      *
      * @return int Total de motoristas ativos
      */
-    public function motoristasAtivos(): int
+    public function contarMotoristasAtivos(): int
     {
         return (int)$this->pdo->query(
             "SELECT COUNT(*) FROM motorista WHERE status = 'ATIVO'"

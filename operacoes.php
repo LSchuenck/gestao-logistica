@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * Arquivo: operacoes.php
  * Finalidade: Entry point do módulo de Operações.
@@ -18,7 +18,7 @@
 
 // Verifica autenticação e restringe acesso a ADMIN, GERENTE e OPERADOR
 require_once 'config/auth.php';
-requerPerfil(['ADMIN', 'GERENTE', 'OPERADOR']);
+exigirPerfil(['ADMIN', 'GERENTE', 'OPERADOR']);
 
 // Inclui a conexão com o banco de dados via PDO
 require_once 'config/conexao.php';
@@ -32,4 +32,4 @@ $dao        = new OperacaoDao($pdo);
 $controller = new OperacaoController($dao);
 
 // Delega toda a lógica de request, dados e renderização ao Controller
-$controller->executar();
+$controller->processar();

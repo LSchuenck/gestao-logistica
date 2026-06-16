@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * View: Entregas
  *
@@ -37,7 +37,7 @@
 </head>
 <body class="bg-light">
 <!-- Renderiza a barra de navegação superior do sistema -->
-<?php renderNavbar(); ?>
+<?php exibirNavegacao(); ?>
 <div class="container-fluid px-4 mb-5">
 
     <!-- Bloco PHP: exibe alerta de erro se houver mensagem de erro do controller -->

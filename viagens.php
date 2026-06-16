@@ -1,16 +1,16 @@
-<?php
+﻿<?php
 /*
  * Arquivo: viagens.php
  * Finalidade: Entry point do módulo de Viagens.
  * Verifica autenticação, carrega dependências e delega
  * todo o processamento ao ViagemController.
  *
- * Acesso: qualquer usuário logado (requerLogin).
+ * Acesso: qualquer usuário logado (exigirLogin).
  */
 
 // Verifica autenticação; redireciona para login.php se necessário
 require_once 'config/auth.php';
-requerLogin();
+exigirLogin();
 
 // Estabelece a conexão com o banco de dados via PDO
 include 'config/conexao.php';

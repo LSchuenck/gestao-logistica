@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Controller: ProdutoController
  *
@@ -38,7 +38,7 @@ class ProdutoController
      *
      * @return void
      */
-    public function executar(): void
+    public function processar(): void
     {
         $erro = "";
 
@@ -50,11 +50,13 @@ class ProdutoController
         if (isset($_GET['excluir'])) {
             try {
                 $this->produtoDao->excluir((int) $_GET['excluir']);
-                // Redireciona para evitar reenvio acidental ao recarregar a página (PRG)
+                salvarMensagem('success', 'Produto removido com sucesso!');
                 header("Location: produtos.php");
                 exit;
             } catch (Exception $e) {
-                $erro = "Não é possível excluir: produto vinculado a entregas ou movimentações.";
+                salvarMensagem('danger', 'Não é possível excluir: produto vinculado a entregas ou movimentações.');
+                header("Location: produtos.php");
+                exit;
             }
         }
 
@@ -72,11 +74,13 @@ class ProdutoController
                     'validade'  => !empty($_POST['validade']) ? $_POST['validade'] : null,
                 ];
                 $this->produtoDao->inserir($dados);
-                // Redireciona para limpar o POST e exibir a lista atualizada (PRG)
+                salvarMensagem('success', 'Produto cadastrado com sucesso!');
                 header("Location: produtos.php");
                 exit;
             } catch (Exception $e) {
-                $erro = "Erro ao cadastrar produto: " . $e->getMessage();
+                salvarMensagem('danger', 'Erro ao cadastrar produto.');
+                header("Location: produtos.php");
+                exit;
             }
         }
 
