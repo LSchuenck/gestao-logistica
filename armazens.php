@@ -14,7 +14,6 @@ exigirPerfil(['ADMIN', 'GERENTE']);
 include 'config/conexao.php';
 
 // Carrega o model, o DAO e o Controller do módulo de armazéns
-require_once 'model/Armazem.php';
 require_once 'dao/ArmazemDao.php';
 require_once 'controller/ArmazemController.php';
 

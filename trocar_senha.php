@@ -18,7 +18,6 @@ require_once 'config/auth.php';
 require_once 'config/conexao.php';
 
 // Carrega as classes necessárias
-require_once __DIR__ . '/model/Usuario.php';
 require_once __DIR__ . '/dao/UsuarioDao.php';
 require_once __DIR__ . '/controller/AuthController.php';
 

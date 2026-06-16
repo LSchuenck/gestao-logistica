@@ -23,7 +23,6 @@ exigirLogin(); // Garante que apenas usuários autenticados acessem este módulo
 include 'config/conexao.php'; // Disponibiliza $pdo
 
 // Carrega as classes do padrão DAO/MVC
-require_once 'model/Entrega.php';
 require_once 'dao/EntregaDao.php';
 require_once 'controller/EntregaController.php';
 

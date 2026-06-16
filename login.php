@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * login.php
  * Entry point do fluxo de autenticação.
@@ -14,7 +14,6 @@
 require_once 'config/conexao.php';
 
 // Carrega as classes necessárias para autenticação
-require_once __DIR__ . '/model/Usuario.php';
 require_once __DIR__ . '/dao/UsuarioDao.php';
 require_once __DIR__ . '/controller/AuthController.php';
 

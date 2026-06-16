@@ -24,7 +24,6 @@ exigirLogin(); // Garante que apenas usuários autenticados acessem este módulo
 include 'config/conexao.php'; // Disponibiliza $pdo
 
 // Carrega as classes do padrão DAO/MVC
-require_once 'model/Estoque.php';
 require_once 'dao/EstoqueDao.php';
 require_once 'dao/MovimentacaoDao.php';
 require_once 'controller/EstoqueController.php';

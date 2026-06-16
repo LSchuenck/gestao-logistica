@@ -19,7 +19,6 @@ exigirPerfil(['ADMIN']);
 require_once 'config/conexao.php';
 
 // Carrega as classes do módulo de usuários
-require_once __DIR__ . '/model/Usuario.php';
 require_once __DIR__ . '/dao/UsuarioDao.php';
 require_once __DIR__ . '/controller/UsuarioController.php';
 

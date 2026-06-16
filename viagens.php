@@ -16,7 +16,6 @@ exigirLogin();
 include 'config/conexao.php';
 
 // Carrega o model, o DAO e o controller do módulo de Viagens
-require_once 'model/Viagem.php';
 require_once 'dao/ViagemDao.php';
 require_once 'controller/ViagemController.php';
 

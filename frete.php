@@ -16,7 +16,6 @@ exigirPerfil(['ADMIN', 'GERENTE']);
 include 'config/conexao.php';
 
 // Carrega o model, o DAO e o controller do módulo de Fretes
-require_once 'model/Frete.php';
 require_once 'dao/FreteDao.php';
 require_once 'controller/FreteController.php';
 

@@ -14,7 +14,6 @@ exigirPerfil(['ADMIN', 'GERENTE']);
 include 'config/conexao.php';
 
 // Carrega o model, o DAO e o Controller do módulo de produtos
-require_once 'model/Produto.php';
 require_once 'dao/ProdutoDao.php';
 require_once 'controller/ProdutoController.php';
 

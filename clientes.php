@@ -14,7 +14,6 @@ exigirPerfil(['ADMIN', 'GERENTE']);
 include 'config/conexao.php';
 
 // Carrega o model, o DAO e o Controller do módulo de clientes
-require_once 'model/Cliente.php';
 require_once 'dao/ClienteDao.php';
 require_once 'controller/ClienteController.php';
 
